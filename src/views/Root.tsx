@@ -1,7 +1,12 @@
 import React from 'react';
+import MainTemplate from '../components/templates/MainTemplate';
 
-function Root() {
-  return <div>rick and morty</div>;
-}
+const Root: React.FC = () => {
+  return (
+    <MainTemplate>
+      <div>Rick and morty</div>
+    </MainTemplate>
+  );
+};
 
 export default Root;
