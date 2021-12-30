@@ -1,11 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-/* font-family: 'Montserrat', sans-serif; */
+/* font-family: 'Shadows Into Light', cursive; */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:'Shadows Into Light' ;
 }
 html{
     color:'black';

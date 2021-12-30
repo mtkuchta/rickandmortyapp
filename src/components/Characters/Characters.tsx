@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Wrapper } from './Characters.style';
 import { gql, useQuery } from '@apollo/client';
+import Character from '../Character/Character';
 
 interface CharactersProps {}
 
@@ -21,11 +22,18 @@ const Characters: React.FC<CharactersProps> = () => {
   const { loading, error, data } = useQuery(CHARACTERS);
 
   useEffect(() => {
-    console.log(data.characters.results);
-    setCharacters(data.characters.results);
+    if (data) {
+      setCharacters(data.characters.results);
+    }
   }, [data]);
 
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      {characters.map(({ name, image }: any) => {
+        return <Character key={name} charName={name} charImage={image} />;
+      })}
+    </Wrapper>
+  );
 };
 
 export default Characters;
