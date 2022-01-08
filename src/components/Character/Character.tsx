@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Wrapper } from './Character.style';
 
 export interface CharacterProps {
@@ -6,13 +6,13 @@ export interface CharacterProps {
   charImage: string;
 }
 
-const Character: React.FC<CharacterProps> = ({ charName, charImage }) => {
+const Character = forwardRef<HTMLDivElement, CharacterProps>(({ charName, charImage }, ref) => {
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <h1>{charName}</h1>
       <img src={charImage} alt="" />
     </Wrapper>
   );
-};
+});
 
 export default Character;
