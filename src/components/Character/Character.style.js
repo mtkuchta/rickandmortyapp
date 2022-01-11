@@ -21,6 +21,8 @@ export const Wrapper = styled.div`
   img {
     width: 80%;
     border-radius: 15px;
-    transform: rotate(4deg);
+    transform: ${() => {
+      return `rotate(${Math.floor(Math.random() * 10) - 5}deg)`;
+    }};
   }
 `;
