@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ rotation: string }>`
   width: 20vw;
   height: 25vw;
   display: flex;
@@ -21,8 +21,6 @@ export const Wrapper = styled.div`
   img {
     width: 80%;
     border-radius: 15px;
-    transform: ${() => {
-      return `rotate(${Math.floor(Math.random() * 10) - 5}deg)`;
-    }};
+    transform: rotate(${({ rotation }) => rotation});
   }
 `;
