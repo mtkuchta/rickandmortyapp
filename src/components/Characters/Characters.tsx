@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Wrapper } from './Characters.style';
 import { gql, Observer, useQuery } from '@apollo/client';
 import Character from '../Character/Character';
+import Loader from '../Loader/Loader';
 
 interface CharactersProps {}
 
@@ -74,6 +75,8 @@ const Characters: React.FC<CharactersProps> = () => {
         if (i === characters.length - 1) return <Character key={id} charName={name} charImage={image} ref={lastItemRef} />;
         return <Character key={id} charName={name} charImage={image} />;
       })}
+      {loading && <Loader />}
+      {/* <Loader /> */}
     </Wrapper>
   );
 };
