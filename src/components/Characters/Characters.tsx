@@ -76,7 +76,6 @@ const Characters: React.FC<CharactersProps> = () => {
         return <Character key={id} charName={name} charImage={image} />;
       })}
       {loading && <Loader />}
-      {/* <Loader /> */}
     </Wrapper>
   );
 };
