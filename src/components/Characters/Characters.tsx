@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Wrapper } from './Characters.style';
-import { gql, Observer, useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import Character from '../Character/Character';
 import Loader from '../Loader/Loader';
+import Modal from '../Modal/Modal';
+import CharacterDetails from '../CharacterDetails/CharacterDetails';
 
 interface CharactersProps {}
 
@@ -27,6 +29,7 @@ const Characters: React.FC<CharactersProps> = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [characters, setCharacters] = useState<Array<string>>([]);
   const [activeCharacter, setActiveCharacter] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { loading, error, data } = useQuery(CHARACTERS, { variables: { page: currentPage } });
 
   const lastItemRef = useRef<HTMLDivElement>(null);
@@ -61,6 +64,16 @@ const Characters: React.FC<CharactersProps> = () => {
     e.preventDefault();
     const { target } = e;
     setActiveCharacter((target as HTMLElement).id);
+    handleOpenModal();
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setActiveCharacter(null);
   };
 
   return (
@@ -80,6 +93,9 @@ const Characters: React.FC<CharactersProps> = () => {
         return <Character key={id} charName={name} charImage={image} charId={id} handleClick={handleClickCharacter} />;
       })}
       {loading && <Loader />}
+      <Modal isOpen={isModalOpen} handleClose={handleCloseModal}>
+        {activeCharacter && <CharacterDetails character={activeCharacter} />}
+      </Modal>
     </Wrapper>
   );
 };

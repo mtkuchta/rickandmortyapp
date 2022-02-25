@@ -5,10 +5,10 @@ export const ModalWrapper = styled(ReactModal)`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 90%;
-  min-height: 20%;
+  width: 60%;
   transform: translate(-50%, -50%);
   background-color: white;
+  border: 3px solid black;
   border-radius: 15px;
   z-index: 1000;
 
@@ -16,7 +16,7 @@ export const ModalWrapper = styled(ReactModal)`
     outline: none;
   }
   @media (min-width: 1024px) {
-    max-width: 400px;
+    /* max-width: 600px; */
   }
 `;
 
