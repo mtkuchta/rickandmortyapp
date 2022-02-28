@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Wrapper } from './Characters.style';
 import { gql, useQuery } from '@apollo/client';
-import Character from '../Character/Character';
-import Loader from '../Loader/Loader';
-import Modal from '../Modal/Modal';
-import CharacterDetails from '../CharacterDetails/CharacterDetails';
+import Character from '../../components/Character/Character';
+import Loader from '../../components/Loader/Loader';
+import Modal from '../../components/Modal/Modal';
+import CharacterDetails from '../../components/CharacterDetails/CharacterDetails';
 
 interface CharactersProps {}
 

@@ -1,11 +1,16 @@
 import React from 'react';
-import Characters from '../components/Characters/Characters';
+import { Routes, Link, Route } from 'react-router-dom';
+import Characters from './Characters/Characters';
+import SearchCharacters from './SearchCharacters/SearchCharacters';
 import MainTemplate from '../components/templates/MainTemplate';
 
 const Root: React.FC = () => {
   return (
     <MainTemplate>
-      <Characters />
+      <Routes>
+        <Route path="/" element={<Characters />} />
+        <Route path="search" element={<SearchCharacters />} />
+      </Routes>
     </MainTemplate>
   );
 };
