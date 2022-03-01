@@ -8,11 +8,6 @@ import CharacterDetails from '../../components/CharacterDetails/CharacterDetails
 
 interface CharactersProps {}
 
-interface RootElement {
-  element: HTMLElement;
-  id: string;
-}
-
 const CHARACTERS = gql`
   query GetCharacters($page: Int!) {
     characters(page: $page) {

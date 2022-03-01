@@ -24,7 +24,7 @@ body{
     box-sizing:border-box
 }
 a,button,input{
-    font-family:'Montserrat', sans-serif;
+    font-family:'Shadows Into Light', sans-serif;
 }
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
