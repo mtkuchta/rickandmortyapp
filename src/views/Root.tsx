@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Link, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Characters from './Characters/Characters';
 import SearchCharacters from './SearchCharacters/SearchCharacters';
 import MainTemplate from '../components/templates/MainTemplate';
