@@ -19,11 +19,13 @@ const FILTERED_CHARACTERS = gql`
 `;
 
 const SearchCharacters: React.FC<SearchCharactersProps> = () => {
-  const [searchValue, setSearchValue] = useState<string | null>(null);
+  const [searchValue, setSearchValue] = useState<string>('');
   const [getCharacters, { loading, error, data }] = useLazyQuery(FILTERED_CHARACTERS);
 
   useEffect(() => {
-    getCharacters({ variables: { filterValue: searchValue } });
+    if (searchValue !== '') {
+      getCharacters({ variables: { filterValue: searchValue } });
+    }
   }, [searchValue]);
 
   useEffect(() => {
