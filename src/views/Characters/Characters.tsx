@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { Wrapper } from './Characters.style';
 import { gql, useQuery } from '@apollo/client';
 import Character from '../../components/Character/Character';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import CharacterDetails from '../../components/CharacterDetails/CharacterDetails';
+import { ModalContext } from '../../providers/ModalProvider';
 
 interface CharactersProps {}
 
@@ -23,8 +24,7 @@ const CHARACTERS = gql`
 const Characters: React.FC<CharactersProps> = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [characters, setCharacters] = useState<Array<string>>([]);
-  const [activeCharacter, setActiveCharacter] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { activeCharacter, isModalOpen, handleClickCharacter, handleCloseModal } = useContext(ModalContext);
   const { loading, error, data } = useQuery(CHARACTERS, { variables: { page: currentPage } });
 
   const lastItemRef = useRef<HTMLDivElement>(null);
@@ -54,22 +54,6 @@ const Characters: React.FC<CharactersProps> = () => {
       if (observer.current) observer.current.disconnect();
     };
   }, [characters]);
-
-  const handleClickCharacter = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    const { target } = e;
-    setActiveCharacter((target as HTMLElement).id);
-    handleOpenModal();
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setActiveCharacter(null);
-  };
 
   return (
     <Wrapper>
