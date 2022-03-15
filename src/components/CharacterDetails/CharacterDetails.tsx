@@ -30,10 +30,6 @@ const CHARACTER = gql`
 const CharacterDetails: React.FC<CharacterDetailsProps> = ({ character }) => {
   const { loading, error, data } = useQuery(CHARACTER, { variables: { id: character } });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <Wrapper>
       {data && (

@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { Wrapper } from './SearchCharacters.style';
+import { useState, useEffect, useContext } from 'react';
+import { Wrapper, CharactersContainer } from './SearchCharacters.style';
 import { gql, useQuery, useLazyQuery } from '@apollo/client';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import { useEffect } from 'react';
+import Character from '../../components/Character/Character';
+import { ModalContext } from '../../providers/ModalProvider';
+import Modal from '../../components/Modal/Modal';
+import CharacterDetails from '../../components/CharacterDetails/CharacterDetails';
 
 interface SearchCharactersProps {}
 
@@ -20,7 +23,9 @@ const FILTERED_CHARACTERS = gql`
 
 const SearchCharacters: React.FC<SearchCharactersProps> = () => {
   const [searchValue, setSearchValue] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<Array<string>>([]);
   const [getCharacters, { loading, error, data }] = useLazyQuery(FILTERED_CHARACTERS);
+  const { activeCharacter, isModalOpen, handleClickCharacter, handleCloseModal } = useContext(ModalContext);
 
   useEffect(() => {
     if (searchValue !== '') {
@@ -29,17 +34,30 @@ const SearchCharacters: React.FC<SearchCharactersProps> = () => {
   }, [searchValue]);
 
   useEffect(() => {
-    console.log(data);
+    if (!data) return;
+    if (data.characters) {
+      setSearchResults(data.characters.results);
+    } else {
+      setSearchResults([]);
+    }
   }, [data]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSearchValue(e.target.value);
-    console.log(typeof e.target.value);
   };
   return (
     <Wrapper>
       <SearchBar handleChange={handleInputChange} />
+      <CharactersContainer>
+        {searchResults &&
+          searchResults.map(({ id, name, image }: any, i: number) => {
+            return <Character key={id} charName={name} charImage={image} charId={id} handleClick={handleClickCharacter} />;
+          })}
+      </CharactersContainer>
+      <Modal isOpen={isModalOpen} handleClose={handleCloseModal}>
+        {activeCharacter && <CharacterDetails character={activeCharacter} />}
+      </Modal>
     </Wrapper>
   );
 };
