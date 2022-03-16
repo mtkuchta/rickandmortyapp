@@ -1,7 +1,8 @@
-import { Wrapper, ImageContainer, DescriptionContainer } from './CharacterDetails.style';
+import { Wrapper, ContentWrapper, ImageContainer, DescriptionContainer } from './CharacterDetails.style';
 import { gql, useQuery } from '@apollo/client';
-import { useEffect } from 'react';
 import CharacterInfo from '../CharacterInfo/CharacterInfo';
+import ModalLoader from '../ModalLoader/ModalLoader';
+import Error from '../Error/Error';
 
 interface CharacterDetailsProps {
   character: string | null;
@@ -32,20 +33,24 @@ const CharacterDetails: React.FC<CharacterDetailsProps> = ({ character }) => {
 
   return (
     <Wrapper>
-      {data && (
-        <>
-          <h2>{data.character.name}</h2>
-          <ImageContainer>
-            <img src={data.character.image} alt="" />
-          </ImageContainer>
-          <DescriptionContainer>
-            <CharacterInfo attribute="Species:" value={data.character.species} />
-            <CharacterInfo attribute="Status:" value={data.character.status} />
-            <CharacterInfo attribute="Origin:" value={data.character.origin.name} />
-            <CharacterInfo attribute="Last known location:" value={data.character.location.name} />
-          </DescriptionContainer>
-        </>
-      )}
+      {loading && <ModalLoader />}
+      {error && <Error message={error.graphQLErrors[0].message} />}
+      <ContentWrapper>
+        {data && (
+          <>
+            <h2>{data.character.name}</h2>
+            <ImageContainer>
+              <img src={data.character.image} alt="" />
+            </ImageContainer>
+            <DescriptionContainer>
+              <CharacterInfo attribute="Species:" value={data.character.species} />
+              <CharacterInfo attribute="Status:" value={data.character.status} />
+              <CharacterInfo attribute="Origin:" value={data.character.origin.name} />
+              <CharacterInfo attribute="Last known location:" value={data.character.location.name} />
+            </DescriptionContainer>
+          </>
+        )}
+      </ContentWrapper>
     </Wrapper>
   );
 };

@@ -6,6 +6,7 @@ import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import CharacterDetails from '../../components/CharacterDetails/CharacterDetails';
 import { ModalContext } from '../../providers/ModalProvider';
+import Error from '../../components/Error/Error';
 
 interface CharactersProps {}
 
@@ -57,6 +58,7 @@ const Characters: React.FC<CharactersProps> = () => {
 
   return (
     <Wrapper>
+      {error && <Error message={error.graphQLErrors[0].message} />}
       {characters.map(({ id, name, image }: any, i: number) => {
         if (i === characters.length - 1)
           return (

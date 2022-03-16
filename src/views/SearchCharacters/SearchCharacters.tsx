@@ -1,11 +1,12 @@
 import { useState, useEffect, useContext } from 'react';
 import { Wrapper, CharactersContainer } from './SearchCharacters.style';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Character from '../../components/Character/Character';
 import { ModalContext } from '../../providers/ModalProvider';
 import Modal from '../../components/Modal/Modal';
 import CharacterDetails from '../../components/CharacterDetails/CharacterDetails';
+import Error from '../../components/Error/Error';
 
 interface SearchCharactersProps {}
 
@@ -30,6 +31,8 @@ const SearchCharacters: React.FC<SearchCharactersProps> = () => {
   useEffect(() => {
     if (searchValue !== '') {
       getCharacters({ variables: { filterValue: searchValue } });
+    } else {
+      setSearchResults([]);
     }
   }, [searchValue]);
 
@@ -49,6 +52,7 @@ const SearchCharacters: React.FC<SearchCharactersProps> = () => {
   return (
     <Wrapper>
       <SearchBar handleChange={handleInputChange} />
+      {error && <Error message={error.graphQLErrors[0].message} />}
       <CharactersContainer>
         {searchResults &&
           searchResults.map(({ id, name, image }: any, i: number) => {
