@@ -6,6 +6,7 @@ export const ModalWrapper = styled(ReactModal)`
   top: 50%;
   left: 50%;
   width: 60%;
+  max-width: 800px;
   transform: translate(-50%, -50%);
   background-color: white;
   border: 3px solid black;
