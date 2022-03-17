@@ -8,8 +8,6 @@ import CharacterDetails from '../../components/CharacterDetails/CharacterDetails
 import { ModalContext } from '../../providers/ModalProvider';
 import Error from '../../components/Error/Error';
 
-interface CharactersProps {}
-
 const CHARACTERS = gql`
   query GetCharacters($page: Int!) {
     characters(page: $page) {
@@ -22,7 +20,7 @@ const CHARACTERS = gql`
   }
 `;
 
-const Characters: React.FC<CharactersProps> = () => {
+const Characters: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [characters, setCharacters] = useState<Array<string>>([]);
   const { activeCharacter, isModalOpen, handleClickCharacter, handleCloseModal } = useContext(ModalContext);

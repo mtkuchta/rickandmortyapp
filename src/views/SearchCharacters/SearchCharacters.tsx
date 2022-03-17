@@ -8,8 +8,6 @@ import Modal from '../../components/Modal/Modal';
 import CharacterDetails from '../../components/CharacterDetails/CharacterDetails';
 import Error from '../../components/Error/Error';
 
-interface SearchCharactersProps {}
-
 const FILTERED_CHARACTERS = gql`
   query GetCharacters($filterValue: String!) {
     characters(filter: { name: $filterValue }) {
@@ -22,7 +20,7 @@ const FILTERED_CHARACTERS = gql`
   }
 `;
 
-const SearchCharacters: React.FC<SearchCharactersProps> = () => {
+const SearchCharacters: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchResults, setSearchResults] = useState<Array<string>>([]);
   const [getCharacters, { loading, error, data }] = useLazyQuery(FILTERED_CHARACTERS);
